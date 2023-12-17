@@ -1,0 +1,41 @@
+body {
+    background: #0083B0;
+    background: -webkit-linear-gradient(to right, #0083B0, #00B4DB);
+    background: linear-gradient(to right, #0083B0, #00B4DB);
+    min-height: 100vh;
+}
+
+.form-control::placeholder {
+    font-style: italic;
+    font-size: 0.85rem;
+    color: #aaa;
+}
+
+.navbar-nav {
+    float: none;
+    text-align: center;
+}
+.navbar-nav li {
+    float: none;
+    display: inline-block;
+}
+
+.my-table{
+    min-height: 200px;
+}
+
+.my-table thead tr th{
+    vertical-align: middle;
+}
+
+.text-with-icon {
+    text-decoration: none;
+}
+
+.text-with-icon i{
+    padding-right: 10px;
+}
+
+h1{
+    font-size: 25px;
+}
