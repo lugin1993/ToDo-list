@@ -1,3 +1,9 @@
-/vendor
-/.idea
+# IDE
+.idea/
+.vscode/
+# Log files
+*.log
+# Setting
 .env
+# Vendor
+vendor/
