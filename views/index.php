@@ -36,8 +36,8 @@
                         Статус
                     </button>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="/page/1?orderBy=email&direction=ASC">по возрастанию</a></li>
-                        <li><a class="dropdown-item" href="/page/1?orderBy=email&direction=DESC">по убыванию</a></li>
+                        <li><a class="dropdown-item" href="/page/1?orderBy=status&direction=ASC">по возрастанию</a></li>
+                        <li><a class="dropdown-item" href="/page/1?orderBy=status&direction=DESC">по убыванию</a></li>
                     </ul>
                 </th>
 				<?php if ($authorized): ?>

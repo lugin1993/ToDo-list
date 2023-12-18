@@ -3,7 +3,6 @@
 namespace Controllers;
 
 use Core\View;
-use Exception;
 use Laminas\Diactoros\Response\RedirectResponse;
 use Models\User;
 use Psr\Http\Message\ServerRequestInterface;

@@ -2,7 +2,6 @@
 
 namespace Controllers;
 
-use Cassandra\Varint;
 use Core\Validator;
 use Core\View;
 use Exception;

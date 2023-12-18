@@ -2,9 +2,6 @@
 include './config/db.php';
 include './vendor/autoload.php';
 
-use Psr\Http\Message\ResponseInterface;
-use Psr\Http\Message\ServerRequestInterface;
-
 $request = Laminas\Diactoros\ServerRequestFactory::fromGlobals(
 	$_SERVER, $_GET, $_POST, $_COOKIE, $_FILES
 );
@@ -33,7 +30,7 @@ $router->group('task', function (\League\Route\RouteGroup $route) {
 	$route->map('GET', '{id}/completed', [Controllers\TaskController::class, 'completed'])
 		->middleware(new \Core\Middleware());
 });
-// map a route
+
 $router->map('GET', '/', [Controllers\MainController::class, 'index']);
 $router->map('GET', '/page/{id}', [Controllers\MainController::class, 'page']);
 try{
@@ -43,5 +40,4 @@ try{
 	$response->getBody()->write('<h1>404</h1>');
 }
 
-// send the response to the browser
 (new Laminas\HttpHandlerRunner\Emitter\SapiEmitter)->emit($response);
