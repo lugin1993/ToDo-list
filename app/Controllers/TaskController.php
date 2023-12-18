@@ -1,12 +1,12 @@
 <?php
 
-namespace Controllers;
+namespace App\Controllers;
 
-use Core\Validator;
-use Core\View;
+use App\Core\Validator;
+use App\Core\View;
 use Exception;
 use Laminas\Diactoros\Response\RedirectResponse;
-use Models\Task;
+use App\Models\Task;
 use Psr\Http\Message\ServerRequestInterface;
 
 class TaskController
@@ -16,11 +16,13 @@ class TaskController
 	 */
 	public function add(ServerRequestInterface $request, $params = []): \Laminas\Diactoros\Response
 	{
-		$view = new View();
 		$params = array_merge(['title' => 'Добавление задачи'], $params);
-		return $view->render('task-create-form', $params);
+		return (new View())->render('task-create-form', $params);
 	}
 
+	/**
+	 * @throws Exception
+	 */
 	public function create(ServerRequestInterface $request): \Laminas\Diactoros\Response
 	{
 		$values = $request->getParsedBody();
@@ -43,7 +45,7 @@ class TaskController
 	/**
 	 * @throws Exception
 	 */
-	public function update(ServerRequestInterface $request)
+	public function update(ServerRequestInterface $request): \Laminas\Diactoros\Response
 	{
 		$values = $request->getParsedBody();
 		$valid = Validator::validate(
@@ -73,11 +75,10 @@ class TaskController
 		$task->setDescription($description);
 		$task->update();
 
-		$view = new View();
-		return $view->render(
+		return (new View())->render(
 			'task-update-form',
 			[
-				'title' => "Редактирование задачи {$task['id']}",
+				'title' => "Редактирование задачи {$task->getId()}",
 				'task' => $task->getAttributes(),
 				'message' => 'Задача успешно обновлена'
 			]
@@ -87,7 +88,7 @@ class TaskController
 	/**
 	 * @throws Exception
 	 */
-	public function completed(ServerRequestInterface $request)
+	public function completed(ServerRequestInterface $request): RedirectResponse
 	{
 		$id = $request->getAttribute('id');
 		$task = Task::getById($id);
@@ -106,11 +107,10 @@ class TaskController
 		if (!$task) {
 			throw new Exception('Not found', 404);
 		}
-		$view = new View();
-		return $view->render(
+		return (new View())->render(
 			'task-update-form',
 			[
-				'title' => "Редактирование задачи {$task['id']}",
+				'title' => "Редактирование задачи {$task->getId()}",
 				'task' => $task->getAttributes()
 			]
 		);

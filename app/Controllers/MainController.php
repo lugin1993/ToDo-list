@@ -1,10 +1,10 @@
 <?php
 
-namespace Controllers;
+namespace App\Controllers;
 
 use Exception;
-use Models\Task;
-use Core\View;
+use App\Models\Task;
+use App\Core\View;
 use Psr\Http\Message\ServerRequestInterface;
 
 class MainController
@@ -12,8 +12,8 @@ class MainController
     /**
      * @throws Exception
      */
-    public function index()
-    {
+    public function index(): \Laminas\Diactoros\Response
+	{
         return (new View())->render('index',
             [
                 'tasks' => Task::getAll(),
@@ -26,8 +26,8 @@ class MainController
     /**
      * @throws Exception
      */
-    public function page(ServerRequestInterface $request)
-    {
+    public function page(ServerRequestInterface $request): \Laminas\Diactoros\Response
+	{
         $page = $request->getAttribute('id');
         $orderBy = $request->getQueryParams()['orderBy'] ?? 'id';
         $direction = $request->getQueryParams()['direction'] ?? 'ASC';

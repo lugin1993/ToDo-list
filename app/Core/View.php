@@ -1,10 +1,10 @@
 <?php
 
-namespace Core;
+namespace App\Core;
 
 use Exception;
 use Laminas\Diactoros\Response;
-use Models\User;
+use App\Models\User;
 
 class View
 {
@@ -32,8 +32,7 @@ class View
     private function renderLayout($data, $content)
     {
 		$data = array_merge($this->templateParams, $data);
-        $fullPath = __DIR__ . '/../views/layouts/default.php';
-
+        $fullPath = __DIR__ . '/../../views/layouts/default.php';
         if (!file_exists($fullPath)) {
             throw new Exception('view cannot be found');
         }
@@ -46,9 +45,7 @@ class View
     private function renderView(string $viewName, array $data = [])
     {
 		$data = array_merge($this->templateParams, $data);
-
-        $fullPath = __DIR__ . '/../views/' . $viewName . '.php';
-
+        $fullPath = __DIR__ . '/../../views/' . $viewName . '.php';
         if (!file_exists($fullPath)) {
             throw new Exception('view cannot be found');
         }

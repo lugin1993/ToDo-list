@@ -1,9 +1,8 @@
 <?php
 
-namespace Core;
+namespace App\Core;
 
-use Laminas\Diactoros\Response\RedirectResponse;
-use Models\User;
+use App\Models\User;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
@@ -17,7 +16,6 @@ class Middleware implements MiddlewareInterface
         if(User::isAuthorized()){
             return $handler->handle($request);
         }
-		$view = new View();
-		return $view->render('login-form', ['title' => 'Авторизация', 'error'=>'Необходимо авторизоваться']);
+		return (new View())->render('login-form', ['title' => 'Авторизация', 'error'=>'Необходимо авторизоваться']);
     }
 }

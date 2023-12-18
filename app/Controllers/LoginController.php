@@ -1,10 +1,10 @@
 <?php
 
-namespace Controllers;
+namespace App\Controllers;
 
-use Core\View;
+use App\Core\View;
 use Laminas\Diactoros\Response\RedirectResponse;
-use Models\User;
+use App\Models\User;
 use Psr\Http\Message\ServerRequestInterface;
 
 class LoginController
@@ -23,13 +23,12 @@ class LoginController
 		if(!$login || !$password){
 			return $this->index($request, ['error'=>'Имя пользователя и пароль обязательные для заполнения']);
 		}
-        $model = new User();
-        $user = $model->getByLogin($login);
-        if ($user['password'] !== md5($password)) {
+        $user = User::getByLogin($login);
+        if (!$user || $user->getPassword() !== md5($password)) {
 			return $this->index($request, ['error'=>'Неверный логин или пароль']);
         }
-        setcookie("userId", $user['id'], time() + 50000, '/');
-        setcookie("userName", $user['name'], time() + 50000, '/');
+        setcookie("userId", $user->id, time() + 50000, '/');
+        setcookie("userName", $user->name, time() + 50000, '/');
 		return new RedirectResponse('/');
     }
 

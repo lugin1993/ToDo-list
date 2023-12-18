@@ -1,9 +1,8 @@
 <?php
 
-namespace Models;
+namespace App\Models;
 
-use Core\DB;
-use League\Route\Http\Exception;
+use App\Core\DB;
 use PDO;
 
 class Task
@@ -23,9 +22,23 @@ class Task
 		}
 	}
 
+	public function getId(): int
+	{
+		return $this->id;
+	}
+
+	public function getStatus(): int
+	{
+		return $this->status;
+	}
+
 	public function setStatus(int $newStatus)
 	{
-		if ($this->status != 2 || ($this->status === 2 && $newStatus == 0)) {
+		if($newStatus == 2 && $this->status == 1){
+			$this->status = $newStatus;
+		}elseif($newStatus == 0){
+			$this->status = $newStatus;
+		}elseif($newStatus == 1 && $this->status != 2){
 			$this->status = $newStatus;
 		}
 	}
@@ -35,12 +48,12 @@ class Task
 		$this->description = htmlspecialchars($description);
 	}
 
-	public function getDescription()
+	public function getDescription(): string
 	{
 		return $this->description;
 	}
 
-	public static function getNumberPage()
+	public static function getNumberPage(): int
 	{
 		$pdo = DB::getConnection();
 		$sql = 'SELECT count(*) FROM tasks';
